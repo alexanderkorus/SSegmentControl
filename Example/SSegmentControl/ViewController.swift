@@ -7,18 +7,34 @@
 //
 
 import UIKit
+import SSegmentControl
 
 class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+
+        self.segmentControl.segmentDidChanged = { index, view in
+            self.contentLabel.text = "Selected segment: \(index)"
+        }
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        self.segmentControl.move(to: 0)
+    }
+
+    override func loadView() {
+        self.view = View()
     }
 
 }
+
+// MARK: - Views
+private extension ViewController {
+    unowned var rootView: View { return self.view as! View }
+    unowned var segmentControl: SSegmentControl { return self.rootView.segmentControl }
+    unowned var contentLabel: UILabel { return self.rootView.contentLabel }
+}
+
 
