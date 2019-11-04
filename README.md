@@ -92,10 +92,10 @@ Getter
 segmentControl.selectedViewIndex  // Returns index of selected view
 ````
 
-You can customize these properties of the drop down:
+You can customize these properties of the segment control:
 - `selectorColor` : Color of the selctor view. Default value is `UIColor.red`
 - `segmentsBackgroundColor` : Background color of the segments container view. Default value is `.white`
-- `isShadowHidden` : Indicates if SegmentControl should throw a shadow. Default value is `.white`
+- `isShadowHidden` : Indicates if SegmentControl should throw a shadow. Default value is `true`
 
 
 
