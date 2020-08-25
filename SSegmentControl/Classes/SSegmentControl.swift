@@ -107,13 +107,14 @@ public class SSegmentControl: UIView {
     private var currentIndex: Int = 0 {
         didSet {
             updateSelectorPosition()
-            guard self.segments.indices.contains(currentIndex) else { return }
+            guard self.segments.indices.contains(currentIndex), !defaultSet else { return }
             segmentDidChanged?(currentIndex, self.segments[currentIndex])
         }
     }
 
     public var segmentDidChanged: ((Int, UIView) -> Void)?
     private var initialSelectedSegmentViewFrame: CGRect?
+	private var defaultSet: Bool = true
     lazy var panGestureRecognizer: UIPanGestureRecognizer = {
         let pgr = UIPanGestureRecognizer(target: self, action: #selector(SSegmentControl.panned(_:)))
         pgr.delegate = self
@@ -128,11 +129,13 @@ public class SSegmentControl: UIView {
     }
 
     // MARK: Initializers
-    public convenience init(segments: [UIView]) {
+	public convenience init(segments: [UIView], defaultIndex: Int? = nil) {
         self.init()
         // defer statement is used for executing code just before transferring
         // program control outside of the scope that the statement appears in.
-        defer { self.segments = segments }
+        defer {
+			self.segments = segments
+		}
     }
 
     public override init(frame: CGRect) {
@@ -202,6 +205,14 @@ public class SSegmentControl: UIView {
         guard self.segments.indices.contains(index) else { return }
         self.currentIndex = index
     }
+
+	public func setIndex(to index: Int) {
+		guard self.segments.indices.contains(index) else { return }
+		defaultSet = true
+		self.currentIndex = index
+		defaultSet = false
+
+	}
 
     /// Updates the position of the selector corresponding to the selected segment
     private func updateSelectorPosition() {
