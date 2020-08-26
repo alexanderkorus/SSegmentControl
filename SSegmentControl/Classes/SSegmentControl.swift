@@ -16,7 +16,7 @@ public class SSegmentControl: UIView {
     /**
         This stackView contains and order the passed Segments
      */
-    let viewStackView: UIStackView = {
+    public let viewStackView: UIStackView = {
         let view = UIStackView()
         view.axis = .horizontal
         view.alignment = UIStackView.Alignment.center
@@ -227,7 +227,6 @@ public class SSegmentControl: UIView {
             }
             self.layoutIfNeeded()
         })
-
     }
 
     // MARK: - Pan Gesture Handler methods
