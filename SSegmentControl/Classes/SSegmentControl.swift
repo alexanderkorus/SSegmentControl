@@ -73,6 +73,8 @@ public class SSegmentControl: UIView {
         }
     }
 
+	public var disabledSegments: [Int] = []
+
     /**
         Color of the selector
      */
@@ -202,7 +204,7 @@ public class SSegmentControl: UIView {
     ///
     /// - Parameter index: index of the selected view
     public func move(to index: Int) {
-        guard self.segments.indices.contains(index) else { return }
+		guard self.segments.indices.contains(index), disabledSegments.contains(index) == false else { return }
         self.currentIndex = index
     }
 
@@ -244,8 +246,9 @@ public class SSegmentControl: UIView {
                 frame.origin.x += gestureRecognizer.translation(in: self).x
                 self.selectedSegmentView.frame = frame
             case .ended, .failed, .cancelled:
-                if nearestIndex(to: selectedSegmentView.center) != self.currentIndex {
-                    move(to: nearestIndex(to: selectedSegmentView.center))
+				let index = nearestIndex(to: selectedSegmentView.center)
+				if index != self.currentIndex && disabledSegments.contains(index) == false {
+                    move(to: index)
                 } else {
                     guard let frame = self.initialSelectedSegmentViewFrame else { return }
                     self.selectedSegmentView.frame = frame
