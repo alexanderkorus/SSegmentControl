@@ -13,24 +13,28 @@ import SSegmentControl
 class View: UIView {
 
     // MARK: - Subviews
-    let followerCount: CounterSegment = {
-        let view = CounterSegment()
-        view.count = 1000
-        view.title = "Follower"
-        return view
-    }()
+	let label1: UILabel = {
+		let label: UILabel = UILabel()
+		label.font = UIFont.boldSystemFont(ofSize: 15.0)
+		label.textColor = .lightGray
+		label.textAlignment = .center
+		label.text = "Posts"
+		return label
+	}()
 
-    let followingCount: CounterSegment = {
-        let view = CounterSegment()
-        view.count = 500
-        view.title = "Following"
-        return view
-    }()
+	let label0: UILabel = {
+		let label: UILabel = UILabel()
+		label.font = UIFont.boldSystemFont(ofSize: 15.0)
+		label.textColor = .black
+		label.textAlignment = .center
+		label.text = "Posts"
+		return label
+	}()
 
-    let label: UILabel = {
+    let label3: UILabel = {
         let label: UILabel = UILabel()
         label.font = UIFont.boldSystemFont(ofSize: 15.0)
-        label.textColor = .black
+        label.textColor = .lightGray
         label.textAlignment = .center
         label.text = "Posts"
         return label
@@ -47,9 +51,9 @@ class View: UIView {
 
     lazy var segmentControl: SSegmentControl = {
         let view: SSegmentControl = SSegmentControl(segments: [
-            self.label,
-            self.followerCount,
-            self.followingCount
+            self.label0,
+            self.label1,
+            self.label3
         ])
         view.selectorColor = .red
         return view

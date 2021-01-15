@@ -16,6 +16,14 @@ class ViewController: UIViewController {
 
         self.segmentControl.segmentDidChanged = { index, view in
             self.contentLabel.text = "Selected segment: \(index)"
+			for (idx, view) in self.segmentControl.viewStackView.arrangedSubviews.enumerated() {
+				guard let label = view as? UILabel else { return }
+				if (index == idx) {
+					label.textColor = .black
+				} else {
+					label.textColor = .lightGray
+				}
+			}
         }
     }
 
